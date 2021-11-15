@@ -10,10 +10,12 @@ namespace InventoryService.Models
       [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
       [Key]
       [Column("Product_Id")]
+      
         public long ProductId { set; get; }
 
         public ProductDetail ProductDetail { set; get; }
         [Column("Product_Type")]
+        
         public ProductType ProductType { set; get; }
 
         [ForeignKey("Catalog")]
