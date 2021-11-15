@@ -29,7 +29,7 @@ namespace InventoryService.Controllers
 
         // GET: CatalogController/Details/5
         // GET: api/Catalog/5
-        [HttpGet("{catalogid}", Name = "Get")]
+        [HttpGet("{catalogId}", Name = "Get")]
         public IActionResult Get(long catalogId)
         {
             var catalog = this._catalogRepository.GetCatalogById(catalogId);
