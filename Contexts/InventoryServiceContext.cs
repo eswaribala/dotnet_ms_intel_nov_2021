@@ -9,7 +9,6 @@ namespace InventoryService.Contexts
         public InventoryServiceContext(DbContextOptions<InventoryServiceContext> options) :
             base(options){
             this.Database.EnsureCreated();
-
         }
 
         public DbSet<Product> Products {  get; set; }
