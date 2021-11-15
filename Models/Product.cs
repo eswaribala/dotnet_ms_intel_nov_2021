@@ -16,7 +16,7 @@ namespace InventoryService.Models
         [Column("Product_Type")]
         public ProductType ProductType { set; get; }
 
-        [ForeignKey("CatalogId")]
+        [ForeignKey("Catalog")]
         [Column("Catalog_Id_FK")]
         public long CatalogId { set; get; }
         public Catalog Catalog { set; get; }
