@@ -1,0 +1,13 @@
+Host.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((host, config) =>
+                {
+                    config.AddJsonFile("configuration.json");
+                })
+                    .ConfigureWebHostDefaults(webBuilder =>
+                    {
+                        webBuilder.UseUrls("http://localhost:7000");
+                        webBuilder.UseStartup<Startup>();
+                    });
+                    
+                    ==========================================================
+                    
