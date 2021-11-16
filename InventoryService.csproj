@@ -30,4 +30,9 @@
     <PackageReference Include="VaultSharp" Version="1.7.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Mutations\" />
+    <Folder Include="Schemas\" />
+  </ItemGroup>
+
 </Project>

@@ -33,10 +33,11 @@ namespace InventoryService
         {
 
             services.AddControllers();
-            //External Configuration design pattern
+
             //services.AddDbContext<InventoryServiceContext>
             //  (o => o.UseSqlServer(Configuration
-            //  .GetConnectionString(EFConnectionString())));
+            //  .GetConnectionString("connstring")));
+            //External Configuration design pattern
             services.AddDbContext<InventoryServiceContext>(o =>
           o.UseSqlServer(EFConnectionString()));
             services.AddApiVersioning(); 
