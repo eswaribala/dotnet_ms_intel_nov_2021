@@ -17,6 +17,7 @@ namespace InventoryService.Models
         [StringLength(50)]
         public string CatalogName {  set; get; }
         [JsonIgnore]
+        
         public Collection<Product> Products { set; get; }
 
     }
