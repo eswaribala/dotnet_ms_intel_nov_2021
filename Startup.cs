@@ -1,9 +1,11 @@
 using InventoryService.Contexts;
 using InventoryService.Repositories;
+using InventoryService.VaultConfiguration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,7 +35,7 @@ namespace InventoryService
             services.AddControllers();
             services.AddDbContext<InventoryServiceContext>
               (o => o.UseSqlServer(Configuration
-              .GetConnectionString("InventoryDBConnString")));
+              .GetConnectionString(EFConnectionString())));
 
             services.AddApiVersioning(); 
            services.AddSwaggerGen(c =>
@@ -72,5 +74,31 @@ namespace InventoryService
             });
 
         }
+        public String EFConnectionString()
+        {
+            Dictionary<String, Object> data = new VaultConnection().GetDBCredentials().Result;
+
+            SqlConnectionStringBuilder providerCs = new SqlConnectionStringBuilder();
+            providerCs.InitialCatalog = "IntelInventoryDB";
+            providerCs.UserID = data["username"].ToString();
+            providerCs.Password = data["password"].ToString();
+            providerCs.DataSource = "DESKTOP-55AGI0I\\MSSQLEXPRESS2021";
+
+            //providerCs.UserID = CryptoService2.Decrypt(ConfigurationManager.AppSettings["UserId"]);
+            providerCs.MultipleActiveResultSets = true;
+            providerCs.TrustServerCertificate = false;
+
+
+
+            //ecsb.Provider = "System.Data.SqlClient";
+            //ecsb.ProviderConnectionString = providerCs.ToString();
+
+            //ecsb.Metadata = string.Format("res://{0}/EDModel.csdl|res://{0}/EDModel.ssdl|res://{0}/EDModel.msl", typeof(Entities).Assembly.FullName);
+
+            return providerCs.ToString();
+
+        }
+
+
     }
 }
