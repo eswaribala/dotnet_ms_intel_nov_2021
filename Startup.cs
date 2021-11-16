@@ -1,5 +1,8 @@
+using GraphQL.Server;
+using GraphQL.Server.Ui.Playground;
 using InventoryService.Contexts;
 using InventoryService.Repositories;
+using InventoryService.Schemas;
 using InventoryService.VaultConfiguration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -40,6 +43,12 @@ namespace InventoryService
             //External Configuration design pattern
             services.AddDbContext<InventoryServiceContext>(o =>
           o.UseSqlServer(EFConnectionString()));
+
+            services.AddScoped<CatalogSchema>();
+            services.AddGraphQL()
+               .AddSystemTextJson()
+               .AddGraphTypes(typeof(CatalogSchema), ServiceLifetime.Scoped);
+
             services.AddApiVersioning(); 
            services.AddSwaggerGen(c =>
             {
@@ -75,6 +84,8 @@ namespace InventoryService
             {
                 c.SwaggerEndpoint($"/swagger/v1/swagger.json", $"v1");
             });
+            app.UseGraphQL<CatalogSchema>();
+            app.UseGraphQLPlayground(options: new PlaygroundOptions());
 
         }
         public String EFConnectionString()
