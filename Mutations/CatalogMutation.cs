@@ -79,7 +79,7 @@ namespace InventoryService.GraphqlMutations
             //       return CatalogRepository.AddCatalog(context.GetArgument<Catalog>("catalog"));
             //   });
 
-            Field<BooleanGraphType>(
+            Field<StringGraphType>(
                 "DeleteCatalog",
                 arguments: new QueryArguments(new QueryArgument<NonNullGraphType<LongGraphType>>
                 { Name = "CatalogId" }),
