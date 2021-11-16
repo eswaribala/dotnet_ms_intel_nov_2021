@@ -72,12 +72,12 @@ namespace InventoryService.GraphqlMutations
                  return InsertStock( catalog);
              });
 
-            Field<CatalogGQLQuery>("insertCatalog",
-               arguments: new QueryArguments(new QueryArgument<CatalogGQLInputType> { Name = "stock" }),
-               resolve: context =>
-               {
-                   return CatalogRepository.AddCatalog(context.GetArgument<Catalog>("catalog"));
-               });
+            //Field<CatalogGQLQuery>("insertCatalog",
+            //   arguments: new QueryArguments(new QueryArgument<CatalogGQLInputType> { Name = "catalog" }),
+            //   resolve: context =>
+            //   {
+            //       return CatalogRepository.AddCatalog(context.GetArgument<Catalog>("catalog"));
+            //   });
 
             Field<BooleanGraphType>(
                 "DeleteCatalog",
