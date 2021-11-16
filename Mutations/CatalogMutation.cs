@@ -48,14 +48,14 @@ using System.Threading.Tasks;
 
 namespace InventoryService.GraphqlMutations
 {
-    public class InventoryMutation : ObjectGraphType
+    public class CatalogMutation : ObjectGraphType
     {
       
 
      
         private readonly ICatalogRepository CatalogRepository;
        
-        public InventoryMutation(ICatalogRepository _CatalogRepository)
+        public CatalogMutation(ICatalogRepository _CatalogRepository)
         {
             
             CatalogRepository = _CatalogRepository;
