@@ -11,17 +11,17 @@
             ],
             "UpstreamPathTemplate": "/catalogs",
             "UseServiceDiscovery": true,
-           // "ServiceName": "DOTNET-INVENTORY-SERVICE",
-           "UpstreamHttpMethod": [ "Get" ],
-           //"QoSOptions": {
-           //    "ExceptionsAllowedBeforeBreaking": 3,
-           //    "DurationOfBreak": 1000,
-           //    "TimeoutValue": 5000
-           //},
-           "FileCacheOptions": { "TtlSeconds": 15 },
-           "LoadBalancerOptions": {
-               "Type": "LeastConnection"
-           }
+            "ServiceName": "Inventory-Service",
+            "UpstreamHttpMethod": [ "Get" ],
+            //"QoSOptions": {
+            //    "ExceptionsAllowedBeforeBreaking": 3,
+            //    "DurationOfBreak": 1000,
+            //    "TimeoutValue": 5000
+            //},
+            "FileCacheOptions": { "TtlSeconds": 15 },
+            "LoadBalancerOptions": {
+                "Type": "LeastConnection"
+            }
         },
         {
             "DownstreamPathTemplate": "/WeatherForecast",
@@ -33,13 +33,25 @@
                 }
             ],
             "UpstreamPathTemplate": "/weather",
-            "RateLimitOptions": {
-                "ClientWhitelist": [],
-                "EnableRateLimiting": true,
-                "Period": "1s",
-                "PeriodTimespan": 1,
-                "Limit": 1
+            "UseServiceDiscovery": true,
+            "ServiceName": "Shipping-Service",
+            "UpstreamHttpMethod": [ "Get" ],
+            //"QoSOptions": {
+            //    "ExceptionsAllowedBeforeBreaking": 3,
+            //    "DurationOfBreak": 1000,
+            //    "TimeoutValue": 5000
+            //},
+            "FileCacheOptions": { "TtlSeconds": 15 },
+            "LoadBalancerOptions": {
+                "Type": "LeastConnection"
             }
+            //"RateLimitOptions": {
+            //    "ClientWhitelist": [],
+            //    "EnableRateLimiting": true,
+            //    "Period": "1s",
+            //    "PeriodTimespan": 1,
+            //    "Limit": 1
+            //}
         }
         
     ],
