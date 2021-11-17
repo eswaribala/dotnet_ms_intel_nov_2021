@@ -7,6 +7,7 @@ namespace InventoryService
 {
     public static class ConsulBuilderExtensions
     {
+        
         public static IApplicationBuilder RegisterConsul(this IApplicationBuilder app, IApplicationLifetime lifetime, ConsulOption consulOption)
         {
             var consulClient = new ConsulClient(x =>
@@ -21,13 +22,13 @@ namespace InventoryService
                 Name = consulOption.ServiceName,//  Service Name
                 Address = consulOption.ServiceIP, //  Service binding IP
                 Port = consulOption.ServicePort, //  Service binding port
-                Check = new AgentServiceCheck()
-                {
-                    DeregisterCriticalServiceAfter = TimeSpan.FromSeconds(5),//How long is the service startup?
-                    Interval = TimeSpan.FromSeconds(10),//Health check interval
-                   // HTTP = consulOption.ServiceHealthCheck,//Health check address
-                    Timeout = TimeSpan.FromSeconds(5)
-                }
+                //Check = new AgentServiceCheck()
+                //{
+                //    DeregisterCriticalServiceAfter = TimeSpan.FromSeconds(5),//How long is the service startup?
+                //    Interval = TimeSpan.FromSeconds(10),//Health check interval
+                //   // HTTP = consulOption.ServiceHealthCheck,//Health check address
+                //    Timeout = TimeSpan.FromSeconds(5)
+                //}
             };
 
             //  Service registration
@@ -40,5 +41,6 @@ namespace InventoryService
             });
             return app;
         }
+        
     }
 }
