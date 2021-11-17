@@ -1,0 +1,55 @@
+{
+    "Routes": [
+        {
+            "DownstreamPathTemplate": "/api/v1/Catalog/Catalogs",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 6060
+                }
+            ],
+            "UpstreamPathTemplate": "/catalogs",
+            "UseServiceDiscovery": true,
+           // "ServiceName": "DOTNET-INVENTORY-SERVICE",
+           "UpstreamHttpMethod": [ "Get" ],
+           //"QoSOptions": {
+           //    "ExceptionsAllowedBeforeBreaking": 3,
+           //    "DurationOfBreak": 1000,
+           //    "TimeoutValue": 5000
+           //},
+           "FileCacheOptions": { "TtlSeconds": 15 },
+           "LoadBalancerOptions": {
+               "Type": "LeastConnection"
+           }
+        },
+        {
+            "DownstreamPathTemplate": "/WeatherForecast",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 6062
+                }
+            ],
+            "UpstreamPathTemplate": "/weather",
+            "RateLimitOptions": {
+                "ClientWhitelist": [],
+                "EnableRateLimiting": true,
+                "Period": "1s",
+                "PeriodTimespan": 1,
+                "Limit": 1
+            }
+        }
+        
+    ],
+    "GlobalConfiguration": {
+        "BaseUrl": "http://localhost:7000",
+        "UseServiceDiscovery": true,
+        "ServiceDiscoveryProvider": {
+            "Type": "Consul",
+            "Host": "localhost",
+            "Port": "8500"
+        }
+    }
+}
