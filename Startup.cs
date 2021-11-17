@@ -43,7 +43,7 @@ namespace InventoryService
             //External Configuration design pattern
             services.AddDbContext<InventoryServiceContext>(o =>
           o.UseSqlServer(EFConnectionString()));
-          
+           
             services.AddScoped<CatalogSchema>();
             services.AddGraphQL()
                .AddSystemTextJson()
@@ -60,7 +60,7 @@ namespace InventoryService
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Microsoft.AspNetCore.Hosting.IApplicationLifetime lifetime)
         {
             if (env.IsDevelopment())
             {
@@ -86,7 +86,15 @@ namespace InventoryService
             });
             app.UseGraphQL<CatalogSchema>();
             app.UseGraphQLPlayground(options: new PlaygroundOptions());
-           
+            var consulOption = new ConsulOption
+            {
+                ServiceName = Configuration["ServiceName"],
+                ServiceIP = Configuration["ServiceIP"],
+                ServicePort = Convert.ToInt32(Configuration["ServicePort"]),
+                //  ServiceHealthCheck = Configuration["ServiceHealthCheck"],
+                Address = Configuration["ConsulAddress"]
+            };
+            app.RegisterConsul(lifetime, consulOption);
         }
         public String EFConnectionString()
         {
