@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Steeltoe.Discovery.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,7 +44,7 @@ namespace InventoryService
             //External Configuration design pattern
             services.AddDbContext<InventoryServiceContext>(o =>
           o.UseSqlServer(EFConnectionString()));
-
+            services.AddDiscoveryClient(Configuration);
             services.AddScoped<CatalogSchema>();
             services.AddGraphQL()
                .AddSystemTextJson()
@@ -86,7 +87,7 @@ namespace InventoryService
             });
             app.UseGraphQL<CatalogSchema>();
             app.UseGraphQLPlayground(options: new PlaygroundOptions());
-
+            app.UseDiscoveryClient();
         }
         public String EFConnectionString()
         {
