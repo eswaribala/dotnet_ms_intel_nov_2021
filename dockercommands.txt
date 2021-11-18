@@ -6,16 +6,9 @@ docker exec -it sql1 /opt/mssql-tools/bin/sqlcmd -U sa -P Vignesh@95!
 select name from sys.databases;
 GO
 
-to show databases
-\l
-;
+
 create database webstoredb;
 
-to switch the db
- \c webstoredb
-
-to list the tables
-\dt
 
 
 exit
