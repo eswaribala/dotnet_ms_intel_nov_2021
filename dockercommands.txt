@@ -1,1 +1,24 @@
 docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Vignesh@95!"  -p 1406:1433 --name sql1 -h sql1  -d mcr.microsoft.com/mssql/server
+
+
+docker exec -it sql1 /opt/mssql-tools/bin/sqlcmd -U sa -P Vignesh@95!
+
+select name from sys.databases;
+GO
+
+to show databases
+\l
+;
+create database webstoredb;
+
+to switch the db
+ \c webstoredb
+
+to list the tables
+\dt
+
+
+exit
+
+
+
