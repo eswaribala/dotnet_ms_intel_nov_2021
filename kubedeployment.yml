@@ -1,0 +1,42 @@
+apiVersion: apps/v1  
+kind: Deployment  
+metadata:  
+  name: kube-api  
+spec:  
+  replicas: 1 
+  selector:
+      matchLabels:
+        name: kube-api  
+  template:  
+    metadata:  
+      labels:  
+        name: kube-api  
+    spec:  
+      containers:  
+      - name: kubedemo-c1  
+        image: rpsregistry.azurecr.io/aksservicedemo
+        command: ["sleep"]
+        args: ["infinity"] 
+        ports:  
+        - containerPort: 8070
+        resources:
+          limits:
+            memory: "600Mi"
+          requests:
+            memory: "200Mi"
+          
+      imagePullSecrets:  
+      - name: globalaks-key
+      
+          
+---  
+apiVersion: v1  
+kind: Service  
+metadata:  
+  name: kube-api  
+spec:  
+  type: LoadBalancer  
+  ports:  
+  - port: 8070  
+  selector:  
+    app: kube-api 
