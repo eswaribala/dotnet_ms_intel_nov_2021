@@ -1,0 +1,42 @@
+apiVersion: apps/v1  
+kind: Deployment  
+metadata:  
+  name: shipping-api  
+spec:  
+  replicas: 1 
+  selector:
+      matchLabels:
+        name: shipping-api   
+  template:  
+    metadata:  
+      labels:  
+        name: shipping-api    
+    spec:  
+      containers:  
+      - name: shipping-c1  
+        image: rpsregistry1970.azurecr.io/aksshippingapp
+        command: ["sleep"]
+        args: ["infinity"] 
+        ports:  
+        - containerPort: 80
+        resources:
+          limits:
+            memory: "600Mi"
+          requests:
+            memory: "200Mi"
+          
+      imagePullSecrets:  
+      - name: global-rps-key
+      
+          
+---  
+apiVersion: v1  
+kind: Service  
+metadata:  
+  name: shipping-service 
+spec:  
+  type: LoadBalancer  
+  ports:  
+  - port: 80  
+  selector:  
+    app: shipping-api 
